@@ -1,0 +1,50 @@
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: anfa-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: anfa-admin
+      MINIO_ROOT_PASSWORD: anfa-password-2026
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  jupyter:
+    image: jupyter/scipy-notebook:latest
+    container_name: anfa-jupyter
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_TOKEN: anfa-token
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    depends_on:
+      minio:
+        condition: service_healthy
+    command: >
+      start-notebook.sh
+      --NotebookApp.token='anfa-token'
+      --NotebookApp.notebook_dir='/home/jovyan/work'
+
+  anfa-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: anfa-analyse:v1
+    container_name: anfa-app
+    restart: "no"
+    volumes:
+      - ../data/referentiel:/data/referentiel:ro
+
+volumes:
+  minio-data:
