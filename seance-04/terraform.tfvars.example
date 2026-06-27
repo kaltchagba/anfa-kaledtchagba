@@ -1,0 +1,7 @@
+# terraform.tfvars.example — modèle à copier vers terraform.tfvars
+# ────────────────────────────────────────────────────────────────
+# Copiez ce fichier : cp terraform.tfvars.example terraform.tfvars
+# Puis remplacez la valeur ci-dessous par votre vrai mot de passe.
+# terraform.tfvars est dans .gitignore : il ne sera jamais poussé sur GitHub.
+
+minio_root_password = "REMPLIR_AVEC_VOTRE_MOT_DE_PASSE"
