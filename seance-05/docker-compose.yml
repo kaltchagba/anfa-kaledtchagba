@@ -22,7 +22,7 @@ services:
       - SPARK_NO_DAEMONIZE=true
     ports:
       - "7077:7077"
-      - "8080:8080"
+      - "8085:8080"
     volumes:
       - ./jobs:/opt/jobs
       - ../data/referentiel:/opt/data/referentiel:ro
