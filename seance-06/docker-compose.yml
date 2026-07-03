@@ -24,7 +24,7 @@ x-airflow-common: &airflow-common
 services:
 
   postgres:
-    image: postgres:18-alpine
+    image: postgres:16-alpine
     container_name: anfa-postgres
     restart: unless-stopped
     environment:
@@ -94,7 +94,7 @@ services:
       - SPARK_NO_DAEMONIZE=true
     ports:
       - "7077:7077"
-      - "8090:8080"          # UI Spark : localhost:8090 (8080 réservé Airflow)
+      - "8085:8080"          # UI Spark : localhost:8085 (8080/8090 réservés OS)
     volumes:
       - ./scripts:/opt/scripts
       - ../data/referentiel:/opt/data/referentiel:ro
