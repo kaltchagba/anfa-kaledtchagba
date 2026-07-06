@@ -18,6 +18,6 @@ consumer = KafkaConsumer(
 
 print("[INFO] Lecture des messages...\n")
 for message in consumer:
-    print(f"[LU] partition={message.partition} offset={message.offset} → {message.value}")
+    print(f"[LU] partition={message.partition} offset={message.offset} -> {message.value}")
 
 print("\n[OK] Fin de la lecture (plus de nouveaux messages).")
