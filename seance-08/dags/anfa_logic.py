@@ -26,7 +26,7 @@ def verifier_liste_fichiers(objets: list) -> dict:
         ValueError: si la liste est vide (aucun résultat produit par Spark).
     """
     if not objets:
-        return {}  # bug volontaire
+        raise ValueError("Aucun fichier de résultat trouvé dans MinIO.")
 
     nb_fichiers = len(objets)
     taille_totale_octets = sum(o["Size"] for o in objets)
